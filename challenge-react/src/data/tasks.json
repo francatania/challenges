@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Implementar login",
+    "description": "Crear formulario de autenticación con validaciones",
+    "teamId": 1,
+    "status": "En Progreso",
+    "createdAt": "2026-01-05T10:30:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Configurar base de datos",
+    "description": "Setup inicial de PostgreSQL y migraciones",
+    "teamId": 2,
+    "status": "Completada",
+    "createdAt": "2026-01-04T09:15:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Configurar CI/CD",
+    "description": "Implementar pipeline de deploy automático",
+    "teamId": 3,
+    "status": "Pendiente",
+    "createdAt": "2026-01-06T14:20:00Z"
+  },
+  {
+    "id": 4,
+    "title": "Testing de integración",
+    "description": "Escribir tests E2E para flujo principal",
+    "teamId": 4,
+    "status": "En Progreso",
+    "createdAt": "2026-01-07T11:00:00Z"
+  },
+  {
+    "id": 5,
+    "title": "Optimizar bundle size",
+    "description": "Reducir tamaño del bundle usando code splitting",
+    "teamId": 1,
+    "status": "Pendiente",
+    "createdAt": "2026-01-08T08:45:00Z"
+  }
+]
