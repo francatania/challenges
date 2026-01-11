@@ -1,5 +1,11 @@
 export type TaskStatus = "Pendiente" | "En Progreso" | "Completada";
 
+export const TASKS_STATUS = {
+    PENDIENTE: "Pendiente",
+  EN_PROGRESO: "En Progreso",
+  COMPLETADA: "Completada",
+}
+
 export interface Task {
     id: number,
     title: string,

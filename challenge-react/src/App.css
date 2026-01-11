@@ -66,3 +66,63 @@ main{
   border-color: rgba(255, 255, 255, 0.6);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
+
+.stats-section{
+  display: flex;
+  gap: 1rem
+}
+
+nav{
+  display: flex;
+  width: 90%;
+  margin: auto;
+  height: 10%;
+  gap: 1rem;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 40%;
+  height: 60%;
+  border: white;
+  border-style: solid;
+  border-radius: 2rem;
+  margin: auto;
+}
+.button-section{
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.new-task{
+  background-color: white;
+  color: black;
+  height: 50%;
+  margin: auto;
+}
+
+.input-form, .select-form{
+  width: 50%;
+  height: 10%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button-back-wrapper{
+  width: 40%;
+  margin: auto;
+  display: flex;
+  justify-content: start;
+}
+.back{
+  margin-bottom: 2rem;
+  margin-left: auto;
+}
+
+.span-error{
+  color: red;
+  font-weight: bold;
+}
