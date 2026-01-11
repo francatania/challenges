@@ -1,5 +1,5 @@
 import { TaskItem } from "./TaskItem";
-import type { Task } from "../types";
+import type { Task, Team } from "../types";
 
 
 export function TaskList({tasks, loading}: {tasks: Task[], loading: boolean}){
@@ -10,7 +10,7 @@ export function TaskList({tasks, loading}: {tasks: Task[], loading: boolean}){
                 {loading ? <h1>Cargando...</h1>
                     :
                     tasks.map(task =>(
-                        <TaskItem key={task.id} task={task}/>
+                        <TaskItem key={task.id} task={task} detail={false}/>
                     ))
                     }
             </section>

@@ -68,10 +68,6 @@ export function TaskForm(){
     }
 
     return <>
-        <div className="button-back-wrapper">
-            <Link to="/"> <button className="back">{"<-- Volver"}</button></Link>
-        </div>
-
 
         <form onSubmit={onSubmitForm}>
 
