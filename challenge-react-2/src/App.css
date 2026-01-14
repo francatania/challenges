@@ -15,3 +15,16 @@ form{
   color: red;
   font-style: bold;
 }
+
+.stats-section{
+  display: flex;
+  gap: 2rem;
+}
+
+.stats-card{
+  border-style: solid;
+  border-color: white;
+  border-width: 2px;
+  padding: 2rem;
+  border-radius: 2rem;
+}

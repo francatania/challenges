@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "./useAuth";
 
 interface UseApiOptions{
     url: string;
@@ -11,13 +12,14 @@ interface UseApiResponse<T>{
     data: T | null;
     loading: boolean;
     error: string | null;
-    execute: (dinamicBody: unknown)=>Promise<T| null>;
+    execute: (dinamicBody?: unknown)=>Promise<T| null>;
 }
 
 export function useApi<T =unknown>({url, method, body, headers: newHeaders}: UseApiOptions): UseApiResponse<T>{
     const [data, setData] = useState<T | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const {token} = useAuth()
     
 
     const execute = async (dinamicBody?: unknown): Promise<T | null>=>{
@@ -26,12 +28,19 @@ export function useApi<T =unknown>({url, method, body, headers: newHeaders}: Use
         setError(null);
         try {
 
-            const headers: HeadersInit = {
+            let headers: HeadersInit = {
                 'Content-Type': 'application/json',
                 ...newHeaders
             }
 
             //falta el token con useAuth
+
+            if(token){
+                headers = {
+                    ...headers,
+                    'Authorization': `Bearer ${token}`
+                }
+            }
 
             const options: RequestInit = {
                 headers,

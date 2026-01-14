@@ -21,7 +21,9 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({children}: {children: ReactNode}){
     const [user, setUser] = useState<User | null>(null);
-    const [token, setToken] = useState<string | null>(null);
+    const [token, setToken] = useState<string | null>(() => {
+        return localStorage.getItem('token');
+    });
     const [accounts, setAccounts] = useState<string[]>([]);
     const navigate = useNavigate();
 
