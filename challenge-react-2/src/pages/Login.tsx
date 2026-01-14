@@ -4,12 +4,14 @@ import { useApi } from "../hooks/useApi";
 import { useAuth } from "../hooks/useAuth"
 import type { AuthResponse, LoginCredentials } from "../types";
 import type { ReactFormState } from "react-dom/client";
+import { useNavigate } from "react-router-dom";
 
 export function Login(){
     const {setToken} = useAuth();
     const [email, setEmail] = useState<string|null>(null);
     const [password, setPassword] = useState<string|null>(null);
     const [error, setError] = useState<string|null>(null);
+    const navigate = useNavigate();
     const api = useApi<AuthResponse>({
             url: ENDPOINTS.LOGIN,
             method: "POST"
@@ -30,9 +32,9 @@ export function Login(){
         }
         const result = await api.execute(credentials);
         if(result){
-            setToken(result.accessToken)
-            //console.log("login exitoso")
-            setError(null)
+            setToken(result.accessToken);
+            setError(null);
+            navigate("/");
         }
     }
 

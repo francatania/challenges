@@ -15,6 +15,15 @@ export interface AuthResponse {
     accessToken: string;
 }
 
+export interface Spent {
+    spentId: string
+    description: string;
+    date: string;
+    amount: number;
+    account: string;
+    category: string
+}
+
 export interface SpentCreated {
     spentId: string;
     description: string;
