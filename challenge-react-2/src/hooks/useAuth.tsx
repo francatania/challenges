@@ -7,5 +7,4 @@ export function useAuth(){
         throw new Error("useAuth must be used with the provider.")
     }
     return context;
-
 }

@@ -11,7 +11,7 @@ interface UseApiResponse<T>{
     data: T | null;
     loading: boolean;
     error: string | null;
-    execute: ()=>Promise<void>;
+    execute: (dinamicBody: unknown)=>Promise<T| null>;
 }
 
 export function useApi<T =unknown>({url, method, body, headers: newHeaders}: UseApiOptions): UseApiResponse<T>{
@@ -20,7 +20,7 @@ export function useApi<T =unknown>({url, method, body, headers: newHeaders}: Use
     const [loading, setLoading] = useState<boolean>(false);
     
 
-    const execute = async (): Promise<void>=>{
+    const execute = async (dinamicBody?: unknown): Promise<T | null>=>{
         setLoading(true);
         setData(null);
         setError(null);
@@ -38,40 +38,49 @@ export function useApi<T =unknown>({url, method, body, headers: newHeaders}: Use
                 method
             }
 
-            if(body && (method === "POST" || method === "PATCH")){
-                options.body = JSON.stringify(body);
+            const finalBody = dinamicBody || body;
+
+            if(finalBody && (method === "POST" || method === "PATCH")){
+                options.body = JSON.stringify(finalBody);
             }
 
             const response = await fetch(url, options);
 
             if(response.status >= 500){
                 setError("Server error. Try again later.")
-                return;
+                return null;
             }
 
             switch(response.status){
                 case 401: 
                     setError("Not authorized.");
                     //TODO: falta agregar un navigate. Lo hago cuando exista el componente
-                    return;
+                    return null;
                 case 404:
                     setError("Resource not found.")
-                    return;
+                    return null;
                 case 400:
                     const error = await response.json();
-                    setError(error.error);
-                    return;
+                    console.log(error)
+                    setError(error.message);
+                    return null;
             }
 
             const result = await response.json();
             setData(result);
+            return result;
             
         } catch (error) {
             if(error instanceof TypeError){
                 setError("Network connection error.")
+                return null;
             }else{
                 setError(error instanceof Error ? error.message: "Error unknown.")
+                return null;
             }
+        }
+        finally{
+            setLoading(false);
         }
     }
 
