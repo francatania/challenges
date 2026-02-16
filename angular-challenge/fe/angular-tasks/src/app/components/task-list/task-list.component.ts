@@ -31,4 +31,10 @@ export class TaskListComponent implements OnInit {
       next: ()=>{this.loadTasks()}
     });
   }
+
+  handleDelete(taskId: number){
+    this.stateService.deleteTask(taskId).subscribe({
+      next: ()=> {this.loadTasks()}}
+    )
+  }
 }

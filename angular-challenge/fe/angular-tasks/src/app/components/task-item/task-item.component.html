@@ -17,7 +17,7 @@
     <p>{{task?.description}}</p>
 
     <div>
-        <button>Eliminar</button>
+        <button (click)="onTaskDeleted(task?.id)">Eliminar</button>
         <select class="border rounded px-3 py-2 font-medium" (change)="onStatusChange($event)">
         <option value="" disabled selected>Cambiar estado</option>
         <option value="TODO">TODO</option>

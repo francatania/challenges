@@ -13,6 +13,7 @@ export class TaskItemComponent {
 
   @Input() task?: Task;
   @Output() statusChanged = new EventEmitter<{taskId: number, status: Status}>();
+  @Output() taskDeleted = new EventEmitter<number>();
 
   onStatusChange(event: Event) {
     const select = event.target as HTMLSelectElement;
@@ -23,6 +24,12 @@ export class TaskItemComponent {
         taskId: this.task.id,
         status: newStatus
       });
+    }
+  }
+
+  onTaskDeleted(taskId?: number){
+    if(taskId){
+      this.taskDeleted.emit(taskId);
     }
   }
 

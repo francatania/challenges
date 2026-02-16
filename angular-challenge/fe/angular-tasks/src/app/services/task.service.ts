@@ -18,7 +18,11 @@ export class TaskService {
     return this.http.get<Task[]>(`${this.baseUrl}/tasks`);
   }
 
-  updateStatus(id: string, status: Status) {
-    return this.http.patch(`${this.baseUrl}/tasks/${id}/status`, {status: status})
+  updateStatus(id: string, status: Status): Observable<Task> {
+    return this.http.patch<Task>(`${this.baseUrl}/tasks/${id}/status`, {status: status})
+  }
+
+  deleteTask(id: string): Observable<void>{
+    return this.http.delete<void>(`${this.baseUrl}/tasks/${id}`);
   }
 }
