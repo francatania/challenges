@@ -10,10 +10,15 @@ import { environment } from '../../environments/environment.development';
 })
 export class TaskService {
 
+
   baseUrl = environment.apiUrl;
   constructor(private http: HttpClient){}
 
   getTasks(): Observable<Task[]>{
     return this.http.get<Task[]>(`${this.baseUrl}/tasks`);
+  }
+
+  updateStatus(id: string, status: Status) {
+    return this.http.patch(`${this.baseUrl}/tasks/${id}/status`, {status: status})
   }
 }

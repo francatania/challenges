@@ -1,6 +1,30 @@
-<div class="flex flex-col border border-black rounded-sm bg-red-200 h-48 w-80 p-2 justify-center">
+<div class="flex flex-col border border-black rounded-md bg-red-100 h-48 w-80 p-2 justify-center gap-1">
     <h3>Tarea {{task?.id}}</h3>
+    <div class="flex gap-2">
     <h3>{{task?.title}}</h3>
-    <h3>{{task?.description}}</h3>
-    <h3>{{task?.createdAt}}</h3>
+    <span class="rounded-md flex flex-col justify-center p-1"
+              [ngClass]= "{
+                'bg-blue-400': task?.status === 'TODO',
+                'bg-yellow-400': task?.status === 'IN_PROGRESS',
+            'bg-yellow-200': task?.status === 'IN_REVIEW',
+            'bg-green-200': task?.status === 'DONE'
+              }"
+    >
+    {{task?.status}}
+    </span>    
+    </div>
+    
+    <p>{{task?.description}}</p>
+
+    <div>
+        <button>Eliminar</button>
+        <select class="border rounded px-3 py-2 font-medium" (change)="onStatusChange($event)">
+        <option value="" disabled selected>Cambiar estado</option>
+        <option value="TODO">TODO</option>
+        <option value="IN_PROGRESS">IN PROGRESS
+        <option value="IN_REVIEW">IN REVISION</option>
+        <option value="DONE">COMPLETED</option>
+        </select>
+        <button>Eliminar</button>
+    </div>
 </div>
