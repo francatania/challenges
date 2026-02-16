@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ng version:*)",
+      "Bash(ng new:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss init)",
+      "Bash(ng g c:*)",
+      "Bash(ng g s:*)"
+    ]
+  }
+}
