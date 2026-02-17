@@ -3,7 +3,7 @@ import { TaskService } from './task.service';
 import { NotificationService } from './notification.service';
 import { Status } from '../models/enums';
 import { catchError, tap, throwError, Observable, EMPTY } from 'rxjs';
-import { Task } from '../models/task.model';
+import { CreateTaskDTO, Task } from '../models/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,16 @@ export class StateService {
       tap(()=>{this.notification.success('Task eliminada')}),
       catchError(()=> {
         this.notification.error('Error')
+        return EMPTY;
+      })
+    )
+  }
+
+  createTask(dto: CreateTaskDTO){
+    return this.taskService.createTask(dto).pipe(
+      tap(()=>this.notification.success("Creado", 3000)),
+      catchError(()=>{
+        this.notification.error("Error al crear task", 3000)
         return EMPTY;
       })
     )

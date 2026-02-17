@@ -1,1 +1,104 @@
-<p>task-form works!</p>
+<form #form="ngForm" class="w-[480px] flex flex-col gap-4 border-2 border-black rounded-md p-8" (ngSubmit)="onSubmit(form)">
+
+    <div class="flex flex-col w-full">
+        <span>Titulo</span>
+        <input 
+        class="border-2 border-gray-500 rounded-sm"
+        type="text"
+        name="title"
+        [(ngModel)]="dto.title"
+        #title="ngModel"
+        required
+        minlength="5">
+    </div>
+    @if (title.touched && title.invalid) {
+        <span class="text-red-500 font-bold">El titulo es obligatorio y debe tener un mínimo de 5 caracteres</span>
+    }
+
+    <div class="flex flex-col w-full">
+        <span>Descripcion</span>
+        <input 
+        class="border-2 border-gray-500 rounded-sm"
+        type="text"
+        name="description"
+        [(ngModel)]="dto.description"
+        #description="ngModel"
+        required
+        minlength="5">
+    </div>
+    @if (description.touched && description.invalid) {
+        <span class="text-red-500 font-bold">La descripcion es obligatoria y debe tener un mínimo de 5 caracteres</span>
+    }
+    
+    <div class="flex flex-col w-full">
+        <span>Prioridad</span>
+
+        <select name="prioridad"   
+        [(ngModel)]="dto.priority"
+        #priority="ngModel"
+        required  id=""
+        class="border-2 border-gray-500"
+        >
+        @for(prioridad of priorities; track prioridad){
+                <option [value]="prioridad">{{prioridad}}</option>
+            }
+        </select>
+    </div>
+
+    <div class="flex flex-col w-full">
+        <span>Categoría</span>
+
+        <select name="category"   
+        [(ngModel)]="dto.category"
+        #category="ngModel"
+        required  id=""
+            class="border-2 border-gray-500"
+        >
+        @for(category of categories; track category){
+                <option [value]="category">{{category}}</option>
+            }
+        </select>
+    </div>
+
+    <div class="flex flex-col w-full">
+        <span>Asignado a</span>
+
+        <select name="assignedToId"   
+        [(ngModel)]="dto.assignedToId"
+        #assignedToId="ngModel"
+        required  id=""
+        (change) ="onSelect($event)"
+            class="border-2 border-gray-500"
+        >
+        @for(member of members; track member){
+                <option [value]="member.id">{{member.name}}</option>
+            }
+        </select>
+    </div>
+
+    
+    <div class="flex flex-col w-full">
+        <span>Fecha de vencimiento</span>
+        <input type="date"
+        name="dueDate"
+        [(ngModel)]="dto.dueDate"
+        #dueDate="ngModel"
+        required
+        [min]="today"
+            class="border-2 border-gray-500"
+        >
+    </div>
+    @if(dueDate.touched && dueDate.invalid){
+        @if(dueDate.errors?.['required']){
+            <span class="text-red-500 font-bold">La fecha de vencimiento es obligatoria</span>
+        }
+
+    }
+
+    <div class="flex justify-center">
+        <button [disabled]="form.invalid" class="w-full p-2 rounded-sm"
+        [ngClass]="form.invalid ? 'bg-gray-500 cursor-not-allowed' : 'cursor-pointer bg-blue-500'">Crear</button>
+    </div>
+    
+
+</form>

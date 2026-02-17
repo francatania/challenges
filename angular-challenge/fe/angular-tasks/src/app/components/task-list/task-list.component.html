@@ -1,5 +1,5 @@
 <div class="flex justify-center gap-2 flex-wrap">
     @for(task of tasks; track task.id){
-        <app-task-item [task]="task" (statusChanged)="handleStatus($event)" (taskDeleted)="handleDelete($event)"/>
+        <app-task-item [task]="task" (statusChanged)="reEmitStatusChange($event)" (taskDeleted)="reEmitTaskDeleted($event)"/>
     }
 </div>

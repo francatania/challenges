@@ -9,5 +9,10 @@ import { environment } from '../../environments/environment.development';
   providedIn: 'root'
 })
 export class TeamService {
+  baseUrl = environment.apiUrl;
+  constructor(private http: HttpClient){}
 
+  getTeamMembers(): Observable<TeamMember[]>{
+    return this.http.get<TeamMember[]>(`${this.baseUrl}/team-members`);
+  }
 }
