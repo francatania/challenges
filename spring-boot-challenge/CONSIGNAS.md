@@ -166,24 +166,31 @@ Definí explícitamente cada relación con sus anotaciones JPA y justificá el t
 
 ## Sección C — Repositorios y Consultas `(3 puntos)`
 
-Creá una interfaz `JpaRepository` para cada entidad. Además, implementá las siguientes consultas usando `@Query`. Indicá en cada caso si usás JPQL o SQL nativo.
+Creá una interfaz `JpaRepository` para cada entidad. Las consultas deben implementarse usando **métodos derivados de JPA** cuando sea posible, y `@Query` solo cuando la complejidad lo requiera. Para las consultas con `@Query`, indicá si usás JPQL o SQL nativo.
 
 ### C.1 — `DesarrolladorRepository`
 
-1. Encontrar todos los desarrolladores activos de un nivel específico.
-2. Buscar un desarrollador por email (ignorando mayúsculas/minúsculas).
-3. Encontrar todos los desarrolladores que están asignados a un proyecto dado (por id de proyecto). *(usar JOIN)*
+1. Encontrar todos los desarrolladores activos de un nivel específico. *(método derivado)*
+2. Buscar un desarrollador por email (ignorando mayúsculas/minúsculas). *(método derivado)*
+3. Encontrar todos los desarrolladores que están asignados a un proyecto dado (por id de proyecto). *(`@Query` JPQL — usar JOIN explícito)*
 
 ### C.2 — `ProyectoRepository`
 
-4. Listar todos los proyectos en un estado determinado, ordenados por `fechaInicio` descendente.
-5. Buscar proyectos cuyo nombre contenga un texto dado (búsqueda parcial, case-insensitive).
+4. Listar todos los proyectos en un estado determinado, ordenados por `fechaInicio` descendente. *(método derivado)*
+5. Buscar proyectos cuyo nombre contenga un texto dado (búsqueda parcial, case-insensitive). *(método derivado)*
 
 ### C.3 — `TareaRepository`
 
-6. Contar cuántas tareas existen por cada estado dentro de un sprint dado. El resultado debe ser una lista de arrays u objetos con `estado` y `cantidad`. *(usar SQL nativo)*
-7. Encontrar todas las tareas con prioridad `CRITICA` o `ALTA` que aún están `PENDIENTE`, ordenadas por prioridad descendente.
-8. Buscar todas las tareas asignadas a un desarrollador específico (por id), filtradas por estado.
+6. Contar cuántas tareas existen por cada estado dentro de un sprint dado. El resultado debe ser una lista de arrays u objetos con `estado` y `cantidad`. *(`@Query` SQL nativo — requiere `GROUP BY`)*
+7. Encontrar todas las tareas con prioridad `CRITICA` o `ALTA` que aún están `PENDIENTE`, ordenadas por prioridad descendente. *(`@Query` JPQL — el orden por enum no es predecible con métodos derivados)*
+8. Buscar todas las tareas asignadas a un desarrollador específico (por id), filtradas por estado. *(método derivado — navegación con `_`)*
+
+> **Referencia rápida de métodos derivados usados:**
+> - `findByActivoTrueAndNivel(...)` — combina campo booleano fijo y parámetro
+> - `findByEmailIgnoreCase(...)` — búsqueda case-insensitive exacta
+> - `findByEstadoOrderByFechaInicioDesc(...)` — filtro + orden
+> - `findByNombreContainingIgnoreCase(...)` — búsqueda parcial case-insensitive
+> - `findByDesarrolladorAsignado_IdAndEstado(...)` — navegación de relación con `_`
 
 ---
 
@@ -322,7 +329,7 @@ Creá un `@RestControllerAdvice` (clase `GlobalExceptionHandler`) que maneje:
 |---|---|
 | A — Configuración | 1 |
 | B — Entidades JPA y relaciones | 3 |
-| C — Repositorios y consultas @Query | 3 |
+| C — Repositorios, métodos derivados y @Query | 3 |
 | D — DTOs y validaciones | 2 |
 | E — Capa de servicio y colecciones | 4 |
 | F — Controladores y manejo de errores | 3 |
