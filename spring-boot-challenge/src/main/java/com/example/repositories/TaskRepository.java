@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.example.models.entity.Task;
 import com.example.models.enums.TaskPriority;
 import com.example.models.enums.TaskStatus;
 
+@Repository
 public interface TaskRepository extends JpaRepository<Task, Long>{
 
     @Query(value = "SELECT t.status, COUNT(*) FROM Task t WHERE t.sprint_id = :sprintId GROUP BY t.status", nativeQuery = true)

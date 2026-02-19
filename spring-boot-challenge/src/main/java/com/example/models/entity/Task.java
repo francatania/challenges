@@ -1,5 +1,6 @@
 package com.example.models.entity;
 
+import com.example.models.enums.TaskPriority;
 import com.example.models.enums.TaskStatus;
 
 import jakarta.persistence.Column;
@@ -28,6 +29,10 @@ public class Task {
 
     @Column(nullable = true)
     private String description;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TaskPriority priority;
 
     @Column
     @Enumerated(EnumType.STRING)
